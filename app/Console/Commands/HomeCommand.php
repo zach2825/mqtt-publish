@@ -11,7 +11,7 @@ class HomeCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'homeauto:commander {topic} {command}';
+    protected $signature = 'homeauto:commander {topic} {message}';
 
     /**
      * The console command description.
@@ -40,7 +40,7 @@ class HomeCommand extends Command
         // Open connection and get connection string
         $mqtt = app('Mqtt');
 
-        $mqtt->publish($this->argument('topic'), $this->argument('command'), 0);
+        $mqtt->publish($this->argument('topic'), $this->argument('message'), 0);
 
         $mqtt->close();
     }
