@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+require '/var/www/home-controller-laravel/vendor/zach2825/phpmqtt/src/PhpMQTT.php';
+
 use Illuminate\Support\ServiceProvider;
+use PhpMQTT\PhpMQTT;
 
 class MqttServiceProvider extends ServiceProvider
 {
@@ -24,9 +27,8 @@ class MqttServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('Mqtt', function ($app) {
-            require 'vendor/zach2825/phpmqtt/phpMQTT.php';
 
-            $mqtt = new \phpMQTT(config('mqtt.host'), config('mqtt.port', '1883'), 'work-box');
+            $mqtt = new PhpMQTT(config('mqtt.host'), config('mqtt.port', '1883'), 'work-box');
 
             if (!$mqtt->connect(true, NULL, config('mqtt.username'), config('mqtt.password'))) {
                 throwException(new \Exception('Mqtt connection failed'));

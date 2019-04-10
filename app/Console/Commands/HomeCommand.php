@@ -40,7 +40,9 @@ class HomeCommand extends Command
         // Open connection and get connection string
         $mqtt = app('Mqtt');
 
-        $mqtt->publish($this->argument('topic'), $this->argument('message'), 0);
+        $argument = $this->argument('message')? 'ON': 'OFF';
+
+        $mqtt->publish($this->argument('topic'), $argument, 0);
 
         $mqtt->close();
     }
